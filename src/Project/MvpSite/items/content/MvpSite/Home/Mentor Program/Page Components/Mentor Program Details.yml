@@ -1,0 +1,62 @@
+﻿---
+ID: "10c6fab3-fe70-48e2-a7c2-4c2e1f74cfc3"
+Parent: "0f22d107-4fea-4818-88ae-002c783fed84"
+Template: "64ad1284-23fb-4b76-85b3-c6dfb1b322bf"
+Path: /sitecore/content/MvpSite/Home/Mentor Program/Page Components/Mentor Program Details
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200721T120848Z
+    - ID: "5098b799-31dd-4c1b-9955-3e8598caa21f"
+      Hint: Content
+      Value: |
+        <div class="col-12 panel">
+            <p class="content" /><h2>Benefits of being a mentor&nbsp;</h2>
+        <ul>
+            <li>Gain new leadership and communication skills</li>
+            <li>Receive support from the Sitecore team and other mentors</li>
+            <li>Contribution will be counted towards the MVP application</li>
+            <li>Networking opportunities</li>
+        </ul>
+        <h2>Benefits of being a mentee</h2>
+        <ul>
+            <li>Learn from an experienced Sitecore MVP</li>
+            <li>Increase your chances of becoming a Sitecore MVP</li>
+            <li>Receive support and guidance from your mentor throughout the year</li>
+            <li>Networking opportunities</li>
+        </ul>
+        <h2>Mentor’s responsibilities</h2>
+        <ul>
+            <li>Mentors need to be willing to mentor 1 or 2 mentees</li>
+            <li>Commitment to spending a couple hours a month mentoring</li>
+            <li>Willingness to participate in the Mentor Network which includes monthly calls</li>
+            <li>Eagerness to share their success stories with the whole community</li>
+        </ul>
+        <h2>How to apply</h2>
+        <p>To apply to the Sitecore MVP mentorship program as a mentor or mentee please send the Sitecore team an email at <a href="mailto:mvp-program@sitecore.com?subject=Mentor%20Program">mvp-program@sitecore.com</a></p>
+        <p><em>Please note that if you are applying as a mentor you must be a Sitecore 2022 MVP.</em></p><p />
+        
+        
+        
+        </div>
+        <div class="mentor-request">
+        <input type="text" id="fname" name="fname" placeholder="Your Email Id" />
+        <button type="button" id="submit-mentor">REQUEST MENTOR</button>
+        
+        <p class="mentor-request-status">
+        </p>
+        </div>
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "2baedee9-493e-4ecd-b8c8-f9f04da8eb70"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20220305T180553Z

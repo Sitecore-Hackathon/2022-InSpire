@@ -1,0 +1,162 @@
+﻿using Sitecore.Data;
+using Sitecore.Data.Items;
+using Sitecore.ContentSearch;
+using Sitecore.ContentSearch.Linq;
+using Sitecore.ContentSearch.Linq.Utilities;
+using Sitecore.ContentSearch.SearchTypes;
+using Sitecore.Mvc.Controllers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using Mvp.Feature.Forms.Search;
+using Mvp.Feature.Forms.Shared.Models;
+using Sitecore.Data.Fields;
+using System.Net.Mail;
+using Sitecore;
+
+namespace Mvp.Feature.Forms.Controllers
+{
+    public class ApplicationController : Controller
+    {
+        FormsService _service;
+        public ApplicationController()
+        {
+            _service = new FormsService();
+        }
+
+        [HttpPost]
+        public JsonResult GetApplicationInfo(string identifier, string email)
+        {
+
+            var applicationInfoModel = new ApplicationInfo();
+            if (string.IsNullOrEmpty(identifier) && string.IsNullOrEmpty(email))
+            {
+                applicationInfoModel = new ApplicationInfo
+                {
+                    Status = ApplicationStatus.PersonItemNotFound
+                };
+
+                return Json(applicationInfoModel, JsonRequestBehavior.AllowGet);
+            }
+
+            if (!string.IsNullOrEmpty(identifier))
+            {
+
+                var personItem = _service.SearchPeopleByOktaId(identifier);
+
+                //fallback to email verification assuming the persons okta id was updated, can be removed later
+                if (personItem == null)
+                {
+                    personItem = _service.SearchPeopleByEmail(email);
+                }
+
+                if (personItem != null)
+                {
+                    Person personO = new Person();
+                    personO.FirstName = personItem.Fields[Constants.Person.Template.Fields.PEOPLE_FIRST_NAME].Value;
+                    personO.LastName = personItem.Fields[Constants.Person.Template.Fields.PEOPLE_LAST_NAME].Value;
+                    personO.OktaId = personItem.Fields[Constants.Person.Template.Fields.OKTA_ID].Value;
+                    personO.Email = personItem.Fields[Constants.Person.Template.Fields.PEOPLE_EMAIL].Value;
+                    personO.ItemPath = personItem.Paths.FullPath;
+                    personO.ItemId = personItem.ID.ToString();
+
+
+                    var applicationItemId = personItem.Fields[Constants.Person.Template.Fields.PEOPLE_APPLICATION]?.Value;
+                    var applicationModel = _service.GetApplicationModel(applicationItemId);
+
+
+
+                    if (applicationModel != null)
+                    {
+                        if (applicationModel.Completed)
+                        {
+                            applicationInfoModel = new ApplicationInfo
+                            {
+                                Status = ApplicationStatus.ApplicationCompleted
+                            };
+                        }
+                        else
+                        {
+                            var applicationStepId = applicationModel.Step;
+                            ApplicationStep applicationStep = _service.GetApplicationStepModel(applicationStepId);
+
+                            applicationInfoModel = new ApplicationInfo
+                            {
+                                Application = applicationModel,
+                                ApplicationStep = applicationStep,
+                                Person = personO,
+                                Status = ApplicationStatus.ApplicationFound
+                            };
+                        }
+                    }
+                    else
+                    {
+                        applicationInfoModel = new ApplicationInfo
+                        {
+                            Person = personO,
+                            Status = ApplicationStatus.ApplicationItemNotFound
+                        };
+                    }
+                }
+                else
+                {
+                    applicationInfoModel = new ApplicationInfo
+                    {
+                        Status = ApplicationStatus.PersonItemNotFound
+                    };
+                }
+            }
+            else
+            {
+                applicationInfoModel = new ApplicationInfo
+                {
+                    Status = ApplicationStatus.NotLoggedIn
+                };
+            }
+            return Json(applicationInfoModel, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult GetApplicationLists()
+        {
+            {
+                var applicationListsModel = new ApplicationLists
+                {
+                    Country = _service.GetCountries(),
+                    EmploymentStatus = _service.GetEmploymentStatus(),
+                    MVPCategory = _service.GetMVPCategories(),
+                };
+
+                return Json(applicationListsModel, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult sendConfirmationEmail(string from)
+        {
+            var emailMessage = new MailMessage();
+            emailMessage.From = !string.IsNullOrEmpty(from) ? new MailAddress(@from) : new MailAddress("noreply@sitecore.com");
+            List<string> tos = new List<string>();
+            tos.Add("mvp-program@sitecore.com");
+            foreach (var to in tos)
+
+            {
+                emailMessage.To.Add("mvp-program@sitecore.com");
+
+            }
+
+            string subject = "Sitecore MVP Mentor Program";
+            emailMessage.Subject = subject;
+            string body = "New Reuest from Mentee. Email ID: " + from;
+            emailMessage.Body = body;
+
+            emailMessage.IsBodyHtml = true;
+
+            MainUtil.SendMail(emailMessage);
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+    }
+}

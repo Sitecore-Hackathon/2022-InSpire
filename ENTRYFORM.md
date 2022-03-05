@@ -1,87 +1,75 @@
+
+
+
 # Hackathon Submission Entry form
 
-> __Important__  
-> 
-> Copy and paste the content of this file into README.md or face automatic __disqualification__  
-> All headlines and subheadlines shall be retained if not noted otherwise.  
-> Fill in text in each section as instructed and then delete the existing text, including this blockquote.
-
-You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
-
 ## Team name
-⟹ Write the name of your Hackathon team here
+
+Team - InSpire
 
 ## Category
-⟹ Write the name of the selected category
+
+Best addition to the MVP Sitecore site
 
 ## Description
-⟹ Write a clear description of your hackathon entry.  
+ - **Module Name**: MVP+
 
-  - Module Purpose
-  - What problem was solved (if any)
-    - How does this module solve it
+ - **Module Purpose**
+ 
+This module objective to make user's life easy by adding additional feature on mentor program page and enhanced search experience on Directory Page. 
 
-_You can alternately paste a [link here](#docs) to a document within this repo containing the description._
+**ENHANCEMENTS**:
+1. **Mentor-Program**: Now mentee can directly apply for Mentor Program from mvp website. On click of Apply now on Mentor Program page after providing email-ID, an email will be sent to [mvp-program@sitecore.com](mailto:mvp-program@sitecore.com?subject=Mentor%20Program) . 
+2. **Directory**: Restrict users to search only string on Directory Page. Prior to this enhancement - user were able to search special & numeric characters.
+
+
+ **- What problem was solved**
+ 
+Earlier from MVP Site, user can get only mentor program details. And to request for Mentor - user were sending email from another url/tab/platform.
+Now we are making it simple and single click to request for Mentor.
+
+On Directory Page, we noticed that there were issues like results are coming on search of special characters, numbers.
+
+**How does this module solve it**
+ 
+Firstly, we have made html & JS change by extending existing data/logic.
+and then written send email WEB API Logic.
 
 ## Video link
-⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
 
-⟹ [Replace this Video link](#video-link)
-
+[MVP+ Video Url](https://www.youtube.com/watch?v=1g-WiI6LalA)
 
 
 ## Pre-requisites and Dependencies
 
-⟹ Does your module rely on other Sitecore modules or frameworks?
+- Dependencies
 
-- List any dependencies
-- Or other modules that must be installed
-- Or services that must be enabled/configured
-
-_Remove this subsection if your entry does not have any prerequisites other than Sitecore_
+Sitecore 10.2 & CLI using Docker
+Sitecore MVP Base Setup
+SMTP details
 
 ## Installation instructions
-⟹ Write a short clear step-wise instruction on how to install your module.  
 
-> _A simple well-described installation process is required to win the Hackathon._  
-> Feel free to use any of the following tools/formats as part of the installation:
-> - Sitecore Package files
-> - Docker image builds
-> - Sitecore CLI
-> - msbuild
-> - npm / yarn
-> 
-> _Do not use_
-> - TDS
-> - Unicorn
- 
-f. ex. 
+- Setup Sitecore MVP Site [Setup Instructions](https://github.com/Sitecore/MVP-Site#readme)
 
-1. Start docker environment using `.\Start-Hackathon.ps1`
-2. Open solution in Visual Studio and run build
-3. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-4. ...
-5. profit
+
 
 ### Configuration
-⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
 
-_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
 
 ## Usage instructions
-⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
 
-Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
+Open Sitecore MVP Site and go to Mentor Program Page.
+To request for Mentor, Please fill your email address and send request.
 
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
+On Directory Page,
+User can feel the magic that - now will not able to search special characters, numeric keys - Only can search string.
 
-You can embed images of different formats too:
+Below are the screenshots in sequence for reference
 
-![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
+![Mentor Program Page](docs/images/mentor-program-page.PNG?raw=true "Mentor Program Page")
 
-And you can embed external images too:
+![Directory Page](docs/images/directory-page.PNG?raw=true "Directory Page")
 
-![Random](https://thiscatdoesnotexist.com/)
 
 ## Comments
-If you'd like to make additional comments that is important for your module entry.
