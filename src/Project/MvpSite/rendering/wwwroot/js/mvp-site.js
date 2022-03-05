@@ -490,3 +490,46 @@ function getApplicationInfo() {
 		}
     });
 }
+
+//To request for Mentor Program
+$("#submit-mentor").click(function (event) {
+    var emailAddress = $('#fname').val();
+    $.ajax({
+        type: "POST",
+        url: "/Application/GetApplicationLists",
+        async: false,
+        data: {
+            'from': emailAddress
+        },
+        success: function (data) {
+
+            if (data.result) {
+                $('.mentor-request-status').append('Thanks for applying for MVP mentor program. We will reach out to you shortly');
+                
+            } else {
+                console.info(data.result);
+            }
+        },
+        error: function (result) {
+            console.error(result);
+        }
+    });
+}
+
+//To restrict special char/paste/numeric key search only
+$("#search").keydown(function (event) {
+    const pattern = new RegExp("[a-zA-Z ]");
+    if (event.type == 'paste') {
+        let data = event.clipboardData.getData('text');
+        if (!(/^[a-zA-Z ]+$/.test(data))) {
+            event.preventDefault()
+        }
+    }
+    else {
+        let charCode = event.charCode ? event.charCode : event.keyCode;
+        let inputChar = String.fromCharCode(charCode);
+        if (charCode != 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
+        }
+    }
+});
