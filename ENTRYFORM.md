@@ -1,6 +1,7 @@
 
 
 
+
 # Hackathon Submission Entry form
 
 ## Team name
@@ -44,9 +45,9 @@ and then written send email WEB API Logic.
 
 - Dependencies
 
-Sitecore 10.2 & CLI using Docker
-Sitecore MVP Base Setup
-SMTP details
+1. Sitecore 10.2 & CLI using Docker
+2. Sitecore MVP Base Setup
+3. SMTP details
 
 ## Installation instructions
 
